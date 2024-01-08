@@ -15,7 +15,7 @@ fun exercise() {
     val productPrice = 9.99
     print("Write product name that you want to buy: ")
     val productName: String = readln()
-    
+
     try {
         print("Write product quantity, should be more Int and more than 0: ")
         val productQnt = readln().toInt()
