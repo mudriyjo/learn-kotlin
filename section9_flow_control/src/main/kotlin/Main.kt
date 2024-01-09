@@ -2,17 +2,27 @@ package org.example
 
 fun main() {
     // IF ELSE
-//    exercise1()
-//    println()
-//    exercise2()
-//    println()
-//    exercise3()
-//    println()
-//    exercise4()
-//    println()
-//    exercise5()
+    exercise1()
+    println()
+    exercise2()
+    println()
+    exercise3()
+    println()
+    // WHEN
+    exercise4()
+    println()
+    exercise5()
+    // FOR
     println()
     exercise6()
+    // WHILE
+    println()
+    exercise7()
+    println()
+    exercise8()
+    // BREAK
+    println()
+    exercise9()
 }
 
 /*
@@ -155,4 +165,69 @@ fun exercise6() {
         }
         println()
     }
+}
+
+/*
+Ask the user to input a large integer.
+Print out all the numbers that are divisible by 7, that are less than the user’s number.
+ */
+
+fun exercise7() {
+    print("Write gin Int number: ")
+    var bigNumber = readln().toInt()
+    while(bigNumber > 0) {
+        if (bigNumber % 7 == 0) println(bigNumber)
+        bigNumber--
+    }
+}
+
+/*
+You have a set of usernames
+val usernames = hashSetOf(“john”, “bob”, “alice”)
+Ask the user to choose their username. If their username is taken, print out a message and ask again.
+Add the username to the set.
+ */
+
+fun exercise8() {
+    val usernames = hashSetOf("john", "bob", "alice")
+    var nameIsChosen = false
+    do {
+        print("Choose name for character: ")
+        val name = readln()
+        if (usernames.contains(name)) {
+            println("Name already chosen, pls choose another name")
+        } else {
+            usernames.add(name)
+            nameIsChosen = true
+        }
+    } while (!nameIsChosen)
+
+    println("Name of all characters: $usernames")
+}
+
+/*
+A group of young people are going to a nightclub.
+Design a program that accepts user ages.
+The program displays a welcome message for each user.
+If it receives an age lower than 18, it prints a message that this client is not allowed.
+If it receives the word “stop”, the program ends
+ */
+
+fun exercise9() {
+    val stopWord = "stop"
+    do {
+        print("Write your name: ")
+        val nameInput = readln()
+        print("Write your age: ")
+        val ageInput = readln()
+
+        if (nameInput == stopWord || ageInput == stopWord) break
+
+        val age = ageInput.toInt()
+        if (age < 18) {
+            println("You can't pass to night club")
+        } else {
+            println("Welcome to night club!!!")
+        }
+    } while (true)
 }
