@@ -51,6 +51,37 @@ fun main() {
     // Exercise 7
     val book = Book(Book.getEditor())
     println("Book editor is: ${book.editor.name}")
+
+//     Exercise 8
+    val son = Son()
+    son.printName()
+
+//     Exercise 9
+    val restaurant = FranchiseRestaurant()
+    restaurant.sellBurger()
+
+    // Exercise 10
+    val boschOven: Oven = Bosch()
+    val roaster: Oven = Roaster()
+    boschOven.cooking()
+    roaster.cooking()
+
+    // Exercise 11
+    val tv = TV()
+    tv.getChannel("First")
+    tv.getChannel("First", true)
+    tv.getChannel("First", 11)
+
+    // Exercise 12
+    val shop = CofeShop()
+    println("I ordered strong coffee and get ${shop.prepareCoffee(true).javaClass}")
+    println("I ordered average coffee and get ${shop.prepareCoffee(false).javaClass}")
+
+    // Exercise 13
+    val regularCar = RegularCar()
+    val limousine = Limousine()
+    regularCar.rent()
+    limousine.rent()
 }
 
 /*
@@ -211,3 +242,173 @@ class Book(val editor: Editor) {
 }
 
 class Editor(val name: String)
+
+/*
+A class Father has a first name and last name. It also has a function that prints out the person’s name.
+A class Son inherits from Father and overrides the first name.
+It also overrides the message function,
+ which now prints out both the name of the person,
+  and the name of the father.
+Implement this structure in a program.
+ */
+
+open class Father() {
+    open val firstName: String = "John"
+    val lastName: String = "Prot"
+    open fun printName() {
+        println("My name is: ${this.firstName} ${this.lastName}")
+    }
+}
+
+class Son(): Father() {
+    override val firstName: String = "Alex"
+
+    override fun printName() {
+        super.printName()
+        println("My Father name is: ${super.firstName} ${super.lastName}")
+    }
+}
+
+
+/*
+A famous fast food restaurant has a secret formula for their burgers.
+A franchise of this brand can sell burgers, but does not have access to the formula.
+ They have to ask the original restaurant how to prepare the food.
+Implement this in a program, and call the franchise object to provide you with burgers.
+ */
+
+open class OriginalRestaurant() {
+    protected fun secretIngredient(): String {
+        return "secret ingredient is love and care"
+    }
+}
+
+class FranchiseRestaurant(): OriginalRestaurant() {
+    fun sellBurger() {
+        val ingredient = super.secretIngredient()
+        println("prepare using secret ingredient")
+        println(ingredient)
+        println("burger ready")
+        println("sell burger")
+    }
+}
+
+/*
+A default oven has an average cooking speed, top temperature and function for cooking.
+A Bosch oven has a higher cooking temperature.
+A Roaster oven does not cook but roasts. The speed and temperature are average.
+Implement this in a program and print out the various information for the objects.
+ */
+
+abstract class Oven {
+    protected val cookingSpeed: String = "average"
+    protected open val topTemperature: String = "top"
+
+    abstract fun cooking()
+}
+class Bosch(): Oven() {
+    override val topTemperature: String = "top top"
+    override fun cooking() {
+        println("Cook in $topTemperature temperature and with $cookingSpeed speed")
+    }
+}
+
+class Roaster(): Oven() {
+    override val topTemperature: String = "average"
+    override fun cooking() {
+        println("Roast in $topTemperature temperature and with $cookingSpeed speed")
+    }
+}
+
+/*
+A TV can provide programs from a certain channel.
+It can also provide channel and subtitle information.
+It can also provide programs that were shown at a certain time of the day.
+Implement this in a program and call the various methods.
+ */
+
+class TV {
+    fun getChannel(channelName: String) {
+        println("Program for $channelName is:")
+        println("8:00 Cartoon")
+        println("12:00 News")
+        println("16:00 Cartoon")
+        println("20:00 News")
+    }
+
+    fun getChannel(channelName: String, subtitles: Boolean) {
+        println("Program for $channelName is:")
+        println("8:00 Cartoon")
+        println("12:00 News")
+        println("16:00 Cartoon")
+        println("20:00 News")
+        if (subtitles) {
+            println("Subtitles is on")
+        }
+    }
+
+    fun getChannel(channelName: String, time: Int) {
+        println("Program for $channelName at $time is:")
+        println("News")
+    }
+}
+
+/*
+Coffee will wake you up but also quench your thirst.
+ There are different types of coffee, Arabica and Robusta.
+  But since you don’t really care about that,
+   you just go to the coffee shop and ask for a coffee, which they will happily provide.
+You will then drink the coffee to both wake you up and quench your thirst.
+Implement this in a program.
+ */
+
+interface Coffee {
+    val density: Int
+    val strong: Int
+}
+class Arabica: Coffee {
+    override val density: Int = 9
+    override val strong: Int = 9
+}
+
+class Robusta: Coffee {
+    override val density: Int = 7
+    override val strong: Int = 5
+}
+
+class CofeShop {
+    fun prepareCoffee(isStrong: Boolean): Coffee {
+        return if (isStrong) {
+            Arabica()
+        } else {
+            Robusta()
+        }
+    }
+}
+
+/*
+A car will drive you to a destination,
+ but a limousine will drive you there in comfort.
+  A car rental place has both, at different prices.
+One day you want a utility car that is cheaper.
+Another day, you want a luxury car.
+Implement this functionality in a program and display the appropriate messages.
+ */
+
+interface Car {
+    val price: Int
+    val levelOfComfort: String
+    fun rent() {
+        println("Car price is $price and it give you a $levelOfComfort of comfort")
+    }
+}
+
+class RegularCar: Car {
+    override val price: Int = 100
+    override val levelOfComfort: String = "average"
+}
+
+class Limousine: Car {
+    override val price: Int = 1000
+    override val levelOfComfort: String = "top"
+}
